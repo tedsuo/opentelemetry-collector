@@ -1,0 +1,21 @@
+[package]
+name = "otap-host-ffi"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+otel-arrow-dfe-admin = { path = "@OTEL_ARROW_DFE@/crates/admin" }
+otel-arrow-dfe-config = { path = "@OTEL_ARROW_DFE@/crates/config" }
+otel-arrow-dfe-controller = { path = "@OTEL_ARROW_DFE@/crates/controller" }
+otel-arrow-dfe-otap = { path = "@OTEL_ARROW_DFE@/crates/otap", features = ["crypto-ring"] }
+otel-arrow-dfe-core-nodes = { path = "@OTEL_ARROW_DFE@/crates/core-nodes", default-features = false, features = ["otlp"] }
+# Same allocator configuration df_engine uses: jemalloc, replacing malloc for the whole process.
+tikv-jemallocator = { version = "0.7.0", features = ["profiling", "unprefixed_malloc_on_supported_platforms"] }
+tokio-util = "0.7.17"
+
+[profile.release]
+debug = "line-tables-only"

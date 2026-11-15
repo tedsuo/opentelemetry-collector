@@ -1,0 +1,14 @@
+diff --git a/rust/otap-dataflow/crates/core-nodes/src/receivers/filelog_receiver/discovery/walk.rs b/rust/otap-dataflow/crates/core-nodes/src/receivers/filelog_receiver/discovery/walk.rs
+index 3ff7e3f..260dd47 100644
+--- a/rust/otap-dataflow/crates/core-nodes/src/receivers/filelog_receiver/discovery/walk.rs
++++ b/rust/otap-dataflow/crates/core-nodes/src/receivers/filelog_receiver/discovery/walk.rs
+@@ -357,7 +357,8 @@ fn prepare_directory<P: MatchPolicy>(
+         frame.replay = !matches!(
+             filesystem,
+             nix::sys::statfs::EXT4_SUPER_MAGIC
+-                | nix::sys::statfs::XFS_SUPER_MAGIC
++                // XFS magic "XFSB": nix omits XFS_SUPER_MAGIC on musl targets.
++                | nix::sys::statfs::FsType(0x5846_5342)
+                 | nix::sys::statfs::BTRFS_SUPER_MAGIC
+         );
+         batch.emit(&frame.lexical, ScanReason::Directory, None);

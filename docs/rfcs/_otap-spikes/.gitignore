@@ -1,0 +1,16 @@
+# Allowlist: only sources, scripts and docs belong here. Build outputs go to
+# $SPIKE_OUT (see common.sh), but this keeps a stray in-tree build out of git.
+*
+!*/
+!.gitignore
+!*.md
+!*.sh
+!*.go
+!*.s
+!*.rs
+!*.toml
+!*.toml.in
+!*.lock
+!*.tbd
+!*.patch
+target/

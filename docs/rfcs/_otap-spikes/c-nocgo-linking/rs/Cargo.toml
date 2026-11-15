@@ -1,0 +1,16 @@
+[package]
+name = "rsffi"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+crate-type = ["staticlib"]
+
+[features]
+# Adds a thread-local, which is what Rust std and tokio use throughout.
+tls = []
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
